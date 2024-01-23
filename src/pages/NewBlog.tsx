@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, CardContent, Typography, Button } from '@mui/material';
-import Input from '../component/ui/input';
+import Input from '../component/ui/Input';
 import { useBlogCreate } from '../apis/CreateBlog';
 import SnackbarComponent from '../component/context/Notification';
 import { v1 as uuidv1 } from 'uuid';

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
-import Input from '../component/ui/input';
+import Input from '../component/ui/Input';
 import { useParams } from 'react-router-dom';
 import { GetBlogByid } from '../apis/GetBlogById';
 import Buttons from '../component/ui/Button';
