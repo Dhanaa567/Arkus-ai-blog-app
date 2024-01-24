@@ -8,19 +8,7 @@ import { useParams } from 'react-router-dom'
 import { GetBlogByid } from '../apis/GetBlogById';
 import emptyImg from "../assets/emptyimage.jpg";
 
-interface BlogData {
-  id: number;
-  title: string;
-  content: string;
-  createdAt: string;
-  imgUrl: string;
-}
-
-interface FullPageComponentProps {
-  data: BlogData;
-}
-
- const Blog: React.FC<FullPageComponentProps> = () => {
+ const Blog: React.FC = () => {
  const { blogId } = useParams();
  const blog = GetBlogByid(blogId);
   return (
@@ -42,10 +30,18 @@ interface FullPageComponentProps {
         {blog?.data?.data?.createdAt}
           </Typography>
         </Box>
+        { blog?.data?.data?.updatedAt ? <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
+        <Typography sx={{ marginTop: 2}}  variant="h6" color="text.secondary" component="div">
+            updateddAt  : 
+          </Typography>
+        <Typography sx={{ marginTop: 2}}  variant="h6" color="text.secondary" component="div">
+        {blog?.data?.data?.updatedAt}
+          </Typography>
+        </Box>: null}
       </Box>
       <CardMedia
         component="img"
-        sx={{ width: 500 }}
+        sx={{ width: 500, alignItems: 'right' }}
         image={blog?.data?.data?.imgUrl ? blog?.data?.data?.imgUrl:  emptyImg}
         alt="Live from space album cover"
       />

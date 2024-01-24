@@ -6,21 +6,18 @@ import SnackbarComponent from '../component/context/Notification';
 import { v1 as uuidv1 } from 'uuid';
 import Spinner from '../component/context/Spinner';
 
-interface NewBlogProps {
-  onCreate: (newBlog: { title: string; content: string; imgUrl: string }) => void;
-}
-
 interface BlogData {
   id: string;
   title: string;
   content: string;
   imgUrl: string | null;
+  createdAt: string | null;
 }
 
-const NewBlog: React.FC<NewBlogProps> = ({  }) => {
-  const { mutate: createBlog , isSuccess, isError, error, isLoading, data} = useBlogCreate();
+const NewBlog: React.FC = ( ) => {
+  const { mutate: createBlog , isSuccess, isError, isLoading} = useBlogCreate();
   
-  const [blogData, setBlogData] = useState<BlogData>({ id: uuidv1(),  title: '', content: '', imgUrl: null });
+  const [blogData, setBlogData] = useState<BlogData>({ id: uuidv1(),  title: '', content: '', imgUrl: null, createdAt: null});
   const [titleError, setTitleError] = useState<boolean>(false);
   const [contentError, setContentError] = useState<boolean>(false);
   const [titleHelperText, setTitleHelperText] = useState<string>('');
@@ -31,9 +28,15 @@ const NewBlog: React.FC<NewBlogProps> = ({  }) => {
     setBlogData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const getTimestamp=(): string => {
+    const currentDate = new Date();
+    const formattedTimestamp = currentDate.toISOString().slice(0, -1); // Remove the 'Z' at the end
+    return formattedTimestamp;
+  }
   React.useMemo(()=>{
     setBlogData((prevData) => ({ ...prevData, id: uuidv1() }));
-  },[data])
+    setBlogData((prevData) => ({ ...prevData, createdAt: getTimestamp() }));
+  },[])
 
   const handleCreateBlog = () => {
     if(blogData?.title === ''){
@@ -44,13 +47,19 @@ const NewBlog: React.FC<NewBlogProps> = ({  }) => {
       setTitleHelperText('')
       setContentError(true)
       setContenHelperText('Content is requered...')
+    }else if(blogData?.content?.length < 500){
+      setTitleError(false);
+      setTitleHelperText('');
+      setContentError(true);
+      setContenHelperText('Content must be minimum 500 charasterics ..');
     } else{
       setTitleError(false)
       setTitleHelperText('')
       setContentError(false)
       setContenHelperText('')
-      setBlogData({ id: uuidv1(),  title: '', content: '', imgUrl: null })
+      
       createBlog({data: blogData});
+      setBlogData({ id: uuidv1(),  title: '', content: '', imgUrl: '', createdAt: null})
     }
   };
 

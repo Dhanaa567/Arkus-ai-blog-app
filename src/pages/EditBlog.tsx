@@ -14,12 +14,19 @@ const EditBlog: React.FC = () => {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [imgUrl, setImgUrl] = useState<string>('');
+  const [cretedAt, setCretedAt] = useState<string>('');
+  const [titleError, setTitleError] = useState<boolean>(false);
+  const [contentError, setContentError] = useState<boolean>(false);
+  const [titleHelperText, setTitleHelperText] = useState<string>('');
+  const [contentHelperText, setContenHelperText] = useState<string>('');
+
  const { mutate: updateBlog, isLoading, isSuccess, isError}= useBlogUpdate();
  
   useEffect(()=>{
     setTitle(blog?.data?.data?.title);
     setContent(blog?.data?.data?.content);
     setImgUrl(blog?.data?.data?.imgUrl);
+    setCretedAt(blog?.data?.data?.createdAt);
   },[blog?.isSuccess])
 
   const handleInputTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,14 +39,42 @@ const EditBlog: React.FC = () => {
     setContent(e.target.value);
   };
 
+  const getTimestamp=(): string => {
+    const currentDate = new Date();
+    const formattedTimestamp = currentDate.toISOString().slice(0, -1); // Remove the 'Z' at the end
+    return formattedTimestamp;
+  }
+
   const handleEditBlog = () => {
     if (blogId !== undefined) {
       const data ={
         title: title , 
         content: content, 
-        imgUrl: imgUrl
+        imgUrl: imgUrl,
+        createdAt: cretedAt,
+        updatedAt: getTimestamp()
       }
-      updateBlog({blogId, data})
+      if(title === ''){
+        setTitleError(true);
+        setTitleHelperText('Title is requred ..');
+      }else if(content === ''){
+        setTitleError(false);
+        setTitleHelperText('');
+        setContentError(true);
+        setContenHelperText('Content is requred ..');
+      }else if(content?.length < 500){
+        setTitleError(false);
+        setTitleHelperText('');
+        setContentError(true);
+        setContenHelperText('Content must be minimum 500 charasterics ..');
+      }else{
+        setTitleError(false);
+        setTitleHelperText('');
+        setContentError(false);
+        setContenHelperText('');
+        updateBlog({blogId, data});
+      }
+      
     }
   };
  
@@ -57,6 +92,8 @@ const EditBlog: React.FC = () => {
           margin="normal"
           variant="outlined"
           value={title}
+          error={titleError}
+          helperText={titleHelperText}
           onChange={handleInputTitleChange}
           InputLabelProps={{ shrink: true }}
         />
@@ -69,6 +106,8 @@ const EditBlog: React.FC = () => {
           multiline={true}
           rows={15}
           value={content}
+          error={contentError}
+          helperText={contentHelperText}
           onChange={handleInputContentChange}
           InputLabelProps={{ shrink: true }}
         />
@@ -86,8 +125,8 @@ const EditBlog: React.FC = () => {
       </CardContent>
     </Card>
     {isLoading?<Spinner loading={isLoading}/>: null }
-    {isSuccess?<SnackbarComponent message='Blog Create  successfully ..!' severity='success' open={isSuccess}/>: null }
-    {isError?<SnackbarComponent message='Blog Create unsuccessfully ..!' severity='error' open={isError}/>: null }
+    {isSuccess?<SnackbarComponent message='Blog update  successfully ..!' severity='success' open={isSuccess}/>: null }
+    {isError?<SnackbarComponent message='Blog update unsuccessfully ..!' severity='error' open={isError}/>: null }
     </>
   );
 };

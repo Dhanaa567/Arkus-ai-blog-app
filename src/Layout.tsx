@@ -6,10 +6,10 @@ import {
   } from "react-router-dom";
 import NavBar from "./component/context/NavBar";
 
-const BlogPage = React.lazy(() => import('../src/pages/Blog'));
-const BlogListPage = React.lazy(() => import('../src/pages/BlogList'));
-const EditBlogPage = React.lazy(() => import('../src/pages/EditBlog'));
-const NewBlogPage = React.lazy(() => import('../src/pages/NewBlog'));
+const BlogPage = React.lazy(() => import('./pages/Blog'));
+const BlogListPage = React.lazy(() => import('./pages/BlogList'));
+const EditBlogPage = React.lazy(() => import('./pages/EditBlog'));
+const NewBlogPage = React.lazy(() => import('./pages/NewBlog'));
 
 const Layout = () => {
   return (
