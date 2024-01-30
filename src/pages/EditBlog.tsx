@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardContent, Typography } from '@mui/material';
-import Input from '../component/ui/Input';
+import { Card, CardContent, Typography, TextField } from '@mui/material';
+
 import { useParams } from 'react-router-dom';
 import { GetBlogByid } from '../apis/GetBlogById';
 import Buttons from '../component/ui/Button';
@@ -85,7 +85,7 @@ const EditBlog: React.FC = () => {
         <Typography variant="h5" component="div" gutterBottom>
           Update Blog
         </Typography>
-        <Input
+        <TextField
           label="Title"
           name="title"
           fullWidth
@@ -97,7 +97,7 @@ const EditBlog: React.FC = () => {
           onChange={handleInputTitleChange}
           InputLabelProps={{ shrink: true }}
         />
-        <Input
+        <TextField
           label="Content"
           name="content"
           fullWidth
@@ -111,7 +111,7 @@ const EditBlog: React.FC = () => {
           onChange={handleInputContentChange}
           InputLabelProps={{ shrink: true }}
         />
-        <Input
+        <TextField
           label="Image URL"
           name="imgUrl"
           fullWidth

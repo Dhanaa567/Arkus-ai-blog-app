@@ -49,51 +49,6 @@ const ReusableTable: React.FC<TableProps> = ({
 }) => {
 
     const windowMesurements = useGetWindowSize();
-//  const [tableHight, setTableHight] = useState(window.innerHeight-100);
-//  useEffect(() => {
-//     const handleResize = () => {
-//       setWindowHeight(window.innerHeight);
-//       setTableHight(windowHeight- 300)
-//     };
-
-//     // Set initial window height
-//     setWindowHeight(window.innerHeight);
-//     setTableHight(window.innerHeight - 220)
-//     // Add event listener to update window height on resize
-//     window.addEventListener('resize', handleResize);
-
-//     // Clean up the event listener on component unmount
-//     return () => {
-//       window.removeEventListener('resize', handleResize);
-//     };
-//   }, [windowHeight]);
-
-  //   const [page, setPage] = useState(0);
-  //   const [rowsPerPage, setRowsPerPage] = useState(5);
-  //   const [searchTerm, setSearchTerm] = useState('');
-  //   const [filteredData, setFilteredData] = useState<any[]>([]);
-
-  //   useEffect(() => {
-  //     // Apply search filter when the search term changes
-  //     const filtered = data.filter(
-  //       (row) =>
-  //         row.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //         row.email.toLowerCase().includes(searchTerm.toLowerCase())
-  //     );
-  //     setFilteredData(filtered);
-
-  //     // Reset page to 0 when applying a new search term
-  //     setPage(0);
-  //   }, [searchTerm, data]);
-
-  //   const handleChangePage = (event: unknown, newPage: number) => {
-  //     setPage(newPage);
-  //   };
-
-  //   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //     setRowsPerPage(parseInt(event.target.value, 10));
-  //     setPage(0);
-  //   };
 
   return (
     <Box p={4}>

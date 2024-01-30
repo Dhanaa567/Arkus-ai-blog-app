@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Card, CardContent, Typography, Button } from '@mui/material';
-import Input from '../component/ui/Input';
+import { Card, CardContent, Typography, Button,TextField } from '@mui/material';
+//import Input from '../component/ui/Input';
 import { useBlogCreate } from '../apis/CreateBlog';
 import SnackbarComponent from '../component/context/Notification';
 import { v1 as uuidv1 } from 'uuid';
@@ -69,7 +69,7 @@ const NewBlog: React.FC = ( ) => {
         <Typography variant="h5" component="div" gutterBottom>
           Create a New Blog
         </Typography>
-        <Input
+        <TextField
           label="Title"
           name="title"
           fullWidth
@@ -81,7 +81,7 @@ const NewBlog: React.FC = ( ) => {
           helperText={titleHelperText}
           onChange={handleInputChange}
         />
-        <Input
+        <TextField
           label="Content"
           name="content"
           fullWidth
@@ -95,7 +95,7 @@ const NewBlog: React.FC = ( ) => {
           helperText={contentHelperText}
           onChange={handleInputChange}
         />
-        <Input
+        <TextField
           label="Image URL"
           name="imgUrl"
           fullWidth
