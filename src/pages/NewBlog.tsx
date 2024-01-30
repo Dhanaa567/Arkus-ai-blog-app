@@ -30,7 +30,7 @@ const NewBlog: React.FC = ( ) => {
 
   const getTimestamp=(): string => {
     const currentDate = new Date();
-    const formattedTimestamp = currentDate.toISOString().slice(0, -1); // Remove the 'Z' at the end
+    const formattedTimestamp = currentDate.toISOString().slice(0, -1); 
     return formattedTimestamp;
   }
   React.useMemo(()=>{
